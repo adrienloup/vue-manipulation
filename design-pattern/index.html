@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Store Pattern Vue</title>
+</head>
+<body>
+  <div id="app">
+    <counter></counter>
+    <notifications></notifications>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.js"></script>
+  <script>
+
+  class Store {
+    constructor() {
+      this.state = {
+        count: 0
+      }
+    }
+    increment() {
+      this.state.count++
+    }
+  }
+
+  let store = new Store()
+
+  let Counter = {
+    data: function() {
+      return {
+        state: store.state
+      }
+    },
+    methods: {
+      increment: function() {
+        store.increment()
+      }
+    },
+    computed: {
+      count: function() {
+        return this.state.count
+      }
+    },
+    template: `<div>
+      <button @click="increment">increment</button>
+      <div>{{ count }}</div>
+      </div>`
+  }
+
+  let Notifications = {
+    components: {
+      Counter
+    },
+    methods: {
+      increment: function() {
+        store.increment()
+      }
+    },
+    template: `<div>
+      <counter></counter>
+      <button @click="increment">increment</button>
+      </div>`
+  }
+
+  new Vue({
+    el: '#app',
+    data: {  },
+    components: {
+      Notifications,
+      Counter
+    }
+  })
+
+  </script>
+</body>
+</html>
