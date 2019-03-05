@@ -9,6 +9,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-## License
-[ISC](https://github.com/adrienloup/react-starter-kit/blob/master/LICENSE.md)
