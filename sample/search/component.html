@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>VueJS</title>
+	</head>
+	<body>
+
+	<div id="app">
+    <list></list>
+    <list></list>
+	</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+		<script>
+
+class Post {
+  constructor(title, link) {
+    this.title = title
+    this.link = link
+  }
+}
+
+let List = {
+  data: function() {
+    return {
+      search: '',
+      list : [
+        new Post(
+          'shoes',
+          'http:/:google.com'
+        ),
+        new Post(
+          'pull',
+          'http:/:google.com'
+        ),
+        new Post(
+          't-shirt',
+          'http:/:google.com'
+        ),
+        new Post(
+          'pants',
+          'http:/:google.com'
+        ),
+        new Post(
+          'dress',
+          'http:/:google.com'
+        ),
+        new Post(
+          'skirt',
+          'http:/:google.com'
+        )
+      ]
+    }
+  },
+  computed: {
+    listed: function() {
+      return this.list.filter(item => {
+        return item.title.includes(this.search)
+      })
+    }
+  },
+  template: `<div>
+      <input type="text" v-model="search">
+      <div v-for="item in listed">
+        <a :href="item.link">{{ item.title }}</a>
+      </div>
+      <div v-if="listed.length === 0">no item</div>
+    </div>`
+}
+
+new Vue({
+  el: '#app',
+  data: {
+    search: ''
+  },
+  components: {
+    List
+  }
+})
+
+		</script>
+
+	</body>
+</html>
