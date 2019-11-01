@@ -6,10 +6,10 @@
 	</head>
 	<body>
 
-	<div id="app">
-    <list></list>
-    <list></list>
-	</div>
+    <div id="app">
+      <search></search>
+      <search></search>
+    </div>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
 		<script>
@@ -21,35 +21,13 @@ class Item {
   }
 }
 
-let List = {
+const Search = {
   data: function() {
     return {
       search: '',
-      list : [
-        new Item(
-          'shoes',
-          'http:/:google.com'
-        ),
-        new Item(
-          'pull',
-          'http:/:google.com'
-        ),
-        new Item(
-          't-shirt',
-          'http:/:google.com'
-        ),
-        new Item(
-          'pants',
-          'http:/:google.com'
-        ),
-        new Item(
-          'dress',
-          'http:/:google.com'
-        ),
-        new Item(
-          'skirt',
-          'http:/:google.com'
-        )
+      list: [
+        new Item('pull', 'htt://google.com'),
+        new Item('shoes', 'htt://google.com')
       ]
     }
   },
@@ -61,19 +39,15 @@ let List = {
     }
   },
   template: `<div>
-      <input type="text" v-model="search">
-      <div v-for="item in listed">
-        <a :href="item.link">{{ item.title }}</a>
-      </div>
-      <div v-if="listed.length === 0">no item</div>
-    </div>`
+  <input type="text" v-model="search">
+  <div v-for="item in listed"><a :href="item.link">{{ item.title }}</a></div>
+  <div v-if="listed.length === 0">no item</div>
+  </div>`
 }
 
 new Vue({
   el: '#app',
-  components: {
-    List
-  }
+  components: { Search }
 })
 
 		</script>
