@@ -14,7 +14,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
 		<script>
 
-class Post {
+class Item {
   constructor(title, link) {
     this.title = title
     this.link = link
@@ -26,27 +26,27 @@ let List = {
     return {
       search: '',
       list : [
-        new Post(
+        new Item(
           'shoes',
           'http:/:google.com'
         ),
-        new Post(
+        new Item(
           'pull',
           'http:/:google.com'
         ),
-        new Post(
+        new Item(
           't-shirt',
           'http:/:google.com'
         ),
-        new Post(
+        new Item(
           'pants',
           'http:/:google.com'
         ),
-        new Post(
+        new Item(
           'dress',
           'http:/:google.com'
         ),
-        new Post(
+        new Item(
           'skirt',
           'http:/:google.com'
         )
@@ -71,9 +71,6 @@ let List = {
 
 new Vue({
   el: '#app',
-  data: {
-    search: ''
-  },
   components: {
     List
   }
