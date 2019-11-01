@@ -5,4 +5,4 @@ Reusable solutions and components and more or less complex tricks built in Vue. 
 * And others
 
 ### License
-[ISC](https://github.com/adrienloup/javascript-vanilla-sample/blob/master/LICENSE.md)
+[ISC](https://github.com/adrienloup/vue-manipulation/blob/master/LICENSE.md)
