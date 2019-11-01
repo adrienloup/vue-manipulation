@@ -2,7 +2,36 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>VueJS</title>
+    <title>VueJS</title>
+    <style>
+
+      *, html, body {
+        margin: 0;
+        padding: 0;
+      }
+      
+      #app > div {
+        height: 50vh;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      #app > div div {
+        animation: Opacity .8s ease;
+      }
+      
+      @keyframes Opacity {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      
+    </style>
 	</head>
 	<body>
 
@@ -15,9 +44,9 @@
 		<script>
 
 class Item {
-  constructor(title, link) {
+  constructor(title, url) {
     this.title = title
-    this.link = link
+    this.url = url
   }
 }
 
@@ -26,23 +55,21 @@ const Search = {
     return {
       search: '',
       list: [
-        new Item('pull', 'htt://google.com'),
-        new Item('shoes', 'htt://google.com')
+        new Item('pull', 'http://pull.com'),
+        new Item('shoes', 'http://shoes.com')
       ]
     }
   },
   computed: {
     listed: function() {
-      return this.list.filter(item => {
-        return item.title.includes(this.search)
-      })
+      return this.list.filter(item => item.title.includes(this.search))
     }
   },
   template: `<div>
-  <input type="text" v-model="search">
-  <div v-for="item in listed"><a :href="item.link">{{ item.title }}</a></div>
-  <div v-if="listed.length === 0">no item</div>
-  </div>`
+    <input type="text" v-model="search">
+    <div v-for="item in listed"><a :href="item.url">{{ item.title }}</a></div>
+    <div v-if="listed.length === 0">no item</div>
+    </div>`
 }
 
 new Vue({
