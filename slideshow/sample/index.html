@@ -16,74 +16,68 @@
         display: flex;
         justify-content: center;
         width: 640px;
-        
-        &--overflow-container {
-          overflow: hidden;
-        }
-        
-        &--nav__left,
-        &--nav__right {
-          display: inline-block;
-          width: 15px;
-          height: 15px;
-          padding: 10px;
-          box-sizing: border-box;
-          border-top: 2px solid #000;
-          border-right: 2px solid #000;
-          cursor: pointer;
-          margin: 0 20px;
-          transition: transform .8s cubic-bezier(0.430, 0.195, 0.020, 1.000);
-          &[disabled] {
-            opacity: 0.2;
-            border-color: black;
-          }
-        }
-        
-        &--nav__left {
-          transform: rotate(-135deg);
-          &:active {
-            transform: rotate(-135deg) scale(0.9);
-          }
-        }
-        
-        &--nav__right {
-          transform: rotate(45deg);
-          &:active {
-            transform: rotate(45deg) scale(0.9);
-          }
-        }
       }
+
+      .card-carousel--overflow-container {
+        overflow: hidden;
+      }
+        
+      .card-carousel--nav__left,
+      .card-carousel--nav__right {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        padding: 10px;
+        box-sizing: border-box;
+        border-top: 2px solid #000;
+        border-right: 2px solid #000;
+        cursor: pointer;
+        margin: 0 20px;
+        transition: transform .8s cubic-bezier(0.430, 0.195, 0.020, 1.000);
+      }
+
+      .card-carousel--nav__left[disabled],
+      .card-carousel--nav__right[disabled] {
+        opacity: 0.2;
+        border-color: black;
+      }
+        
+      .card-carousel--nav__left { transform: rotate(-135deg) }
+      .card-carousel--nav__left:active { transform: rotate(-135deg) scale(0.9) }
+        
+      .card-carousel--nav__right { transform: rotate(45deg) }
+      .card-carousel--nav__right:active { transform: rotate(45deg) scale(0.9) }
 
       .card-carousel-cards {
         white-space: nowrap;
         transition: transform .8s cubic-bezier(0.430, 0.195, 0.020, 1.000);
         transform: translatex(0px);
+      }
+
+      .card-carousel--card {
+        width: 200px;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 10px;
+        background-color: #fff;
+      }
+        
+      .card-carousel--card:first-child {
+        margin-left: 0;
+      }
       
-        .card-carousel--card {
-          width: 200px;
-          display: inline-block;
-          vertical-align: top;
-          margin: 0 10px;
-          background-color: #fff;
-          
-          &:first-child {
-            margin-left: 0;
-          }
-          
-          &:last-child {
-            margin-right: 0;
-          }
-          
-          img {
-            display: block;
-            width: 100%;
-            height: auto;
-          }
-          
-          &--footer {
-            padding: 10px;
-          }
-        }
+      .card-carousel--card:last-child {
+        margin-right: 0;
+      }
+      
+      .card-carousel--card img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      
+      .card-carousel--card--footer {
+        padding: 10px;
       }
   </style>
   <body>
