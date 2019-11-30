@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+    <title>VueJS</title>
+    <style>
+
+      *, html, body {
+        margin: 0;
+        padding: 0;
+      }
+      
+      #app > div {
+        height: 50vh;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      #app > div div {
+        animation: Opacity .8s ease;
+      }
+      
+      @keyframes Opacity {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      
+    </style>
+	</head>
+	<body>
+
+    <div id="app">
+      <search></search>
+      <search></search>
+    </div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+		<script>
+
+class Item {
+  constructor(title, url) {
+    this.title = title
+    this.url = url
+  }
+}
+
+const Search = {
+  data: function() {
+    return {
+      search: '',
+      list: [
+        new Item('pull', 'http://pull.com'),
+        new Item('shoes', 'http://shoes.com')
+      ]
+    }
+  },
+  computed: {
+    listed: function() {
+      return this.list.filter(item => item.title.includes(this.search))
+    }
+  },
+  template: `<div>
+    <input type="text" v-model="search">
+    <div v-for="item in listed"><a :href="item.url">{{ item.title }}</a></div>
+    <div v-if="listed.length === 0">no item</div>
+    </div>`
+}
+
+new Vue({
+  el: '#app',
+  components: { Search }
+})
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>Search App</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="search">
+      <div v-for="item in listed">
+        <a :href="item.link">{{ item.title }}</a>
+      </div>
+      <div v-if="listed.length === 0">No color</div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script>
+      
+      class Item {
+        constructor(title, link) {
+          this.title = title
+          this.link = link
+        }
+      }
+
+      new Vue({
+        el: '#app',
+        data: {
+          search: '',
+          list: [
+            new Item('red', 'http://red.com'),
+            new Item('green', 'http://green.com'),
+            new Item('blue', 'http://blue.com')
+          ]
+        },
+        computed: {
+          listed: function() {
+            return this.list.filter((item) => {
+              return item.title.includes(this.search);
+            });
+          }
+        }
+      });
+
+    </script>
+  </body>
+</html>
