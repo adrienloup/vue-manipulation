@@ -3,158 +3,50 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>VueJS Card Carousel</title>
+    <title>VueJS Form Validation</title>
     <style>
-      .card-carousel-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 20px 0 40px;
-      }
-
-      .card-carousel {
-        display: flex;
-        justify-content: center;
-        width: 640px;
-        
-        &--overflow-container {
-          overflow: hidden;
-        }
-        
-        &--nav__left,
-        &--nav__right {
-          display: inline-block;
-          width: 15px;
-          height: 15px;
-          padding: 10px;
-          box-sizing: border-box;
-          border-top: 2px solid #000;
-          border-right: 2px solid #000;
-          cursor: pointer;
-          margin: 0 20px;
-          transition: transform .8s cubic-bezier(0.430, 0.195, 0.020, 1.000);
-          &[disabled] {
-            opacity: 0.2;
-            border-color: black;
-          }
-        }
-        
-        &--nav__left {
-          transform: rotate(-135deg);
-          &:active {
-            transform: rotate(-135deg) scale(0.9);
-          }
-        }
-        
-        &--nav__right {
-          transform: rotate(45deg);
-          &:active {
-            transform: rotate(45deg) scale(0.9);
-          }
-        }
-      }
-
-      .card-carousel-cards {
-        white-space: nowrap;
-        transition: transform .8s cubic-bezier(0.430, 0.195, 0.020, 1.000);
-        transform: translatex(0px);
-      
-        .card-carousel--card {
-          width: 200px;
-          display: inline-block;
-          vertical-align: top;
-          margin: 0 10px;
-          background-color: #fff;
-          
-          &:first-child {
-            margin-left: 0;
-          }
-          
-          &:last-child {
-            margin-right: 0;
-          }
-          
-          img {
-            display: block;
-            width: 100%;
-            height: auto;
-          }
-          
-          &--footer {
-            padding: 10px;
-          }
-        }
-      }
-  </style>
+      .form-group.has-warning label,
+      .form-group.has-warning div { color: red }
+      .form-group.has-warning input { border-color: red }
+    </style>
+  </head>
   <body>
-    <script id="carousel" type="x/template">
-      <div class="card-carousel-wrapper">
-        <div class="card-carousel--nav__left" @click="moveCarousel(-1)" :disabled="atHeadOfList"></div>
-        <div class="card-carousel">
-          <div class="card-carousel--overflow-container">
-            <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-              <div class="card-carousel--card" v-for="item in items">
-                <img :src="'https://picsum.photos/id/3' + item.name + '/200/200'" :alt="item.name">
-                <div class="card-carousel--card--footer">{{ item.name }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-carousel--nav__right" @click="moveCarousel(1)" :disabled="atEndOfList"></div>
+    <form id="form" method="post" v-on:submit="validateForm">
+      <div class="form-group" :class="{ 'has-warning': submit && missingName }">
+        <label for="firstname">firstname</label>
+        <input id="firstname" name="firstname" type="text" v-model="firstname">
+        <div v-if="submit && missingName">This field is required.</div>
       </div>
-    </script>
-    <div id="app"> 
-      <carousel></carousel>
-    </div>
+      <div class="form-group" :class="{ 'has-warning': submit && missingLastName }">
+        <label for="lastname">lastname</label>
+        <input id="lastname" name="lastname" type="text" v-model="lastname">
+        <div v-if="submit && missingLastName">This field is required.</div>
+      </div>
+      <button>Submit</button>
+    </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
     <script>
-      class Item {
-        constructor(name) {
-          this.name = name
-        }
-      }
-
-      Vue.component("carousel", {
-        template: "#carousel",
-        data() {
-          return {
-            currentOffset: 0,
-            windowSize: 2,
-            paginationFactor: 220,
-            items: [
-              new Item('1'),
-              new Item('2'),
-              new Item('3'),
-              new Item('4'),
-              new Item('5'),
-              new Item('6'),
-              new Item('7'),
-              new Item('8'),
-              new Item('9')
-            ]
-          }
+      var form = new Vue({
+        el: '#form',
+        data: {
+          firstname: '',
+          lastname: '',
+          submit: false,
         },
         computed: {
-          atEndOfList() {
-            return this.currentOffset <= (this.paginationFactor * -1) * ((this.items.length - 1) - this.windowSize)
+          missingName: function () {
+            return this.firstname === ''
           },
-          atHeadOfList() {
-            return this.currentOffset === 0
+          missingLastName: function () {
+            return this.lastname === ''
           }
         },
         methods: {
-          moveCarousel(direction) {
-            if (direction === 1 && !this.atEndOfList) {
-              this.currentOffset -= this.paginationFactor
-            } else if (direction === -1 && !this.atHeadOfList) {
-              this.currentOffset += this.paginationFactor
-            }
-          }
-        }
-      })
-
-      new Vue({
-        el:"#app"
+          validateForm: function (event) {
+            this.submit = true;
+            if (this.missingName || this.missingLastName) event.preventDefault()
+          },
+        },
       })
     </script>
   </body>
