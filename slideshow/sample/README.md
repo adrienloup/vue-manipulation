@@ -1,1 +1,2 @@
-###[VueJS Card Carousel](https://codepen.io/adrienloup/pen/oNNRgGG?editors=0110)
+### VueJS Card Carousel
+[codepen.io](https://codepen.io/adrienloup/pen/oNNRgGG)
